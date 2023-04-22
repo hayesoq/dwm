@@ -68,11 +68,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *browsercmd[] = { "librewolf", NULL };
 
-// volume controls
-static const char *upvol[]     = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%",     NULL };
-static const char *downvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%",     NULL };
-static const char *mutevol[]   = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",   NULL };
-
 // mic mute
 static const char *micmute[]   = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
  
@@ -116,12 +111,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol         } },
-	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol           } },
-	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol         } },
+    { 0,	                    	XF86XK_AudioRaiseVolume,  spawn,		SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +10%; kill -44 $(pidof dwmblocks)") },
+    { 0,	                    	XF86XK_AudioLowerVolume,  spawn,		SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -10%; kill -44 $(pidof dwmblocks)") },
+    { 0,	                    	XF86XK_AudioMute,      	  spawn,		SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
+	{ 0,                            XF86XK_AudioMicMute,      spawn, {.v = micmute         } },
 	{ 0,                            XF86XK_MonBrightnessUp,   spawn, {.v = upbright        } },
 	{ 0,                            XF86XK_MonBrightnessDown, spawn, {.v = downbright      } },
-	{ 0,                            XF86XK_AudioMicMute,      spawn, {.v = micmute         } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
