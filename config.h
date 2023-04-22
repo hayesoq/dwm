@@ -81,6 +81,7 @@ static const char *upbright[]   = { "brightnessctl", "-d", "amdgpu_bl0", "set", 
 static const char *downbright[] = { "brightnessctl", "-d", "amdgpu_bl0", "set", "5%-", NULL };
 
 #include <X11/XF86keysym.h>
+#include "movestack.c"
 #include "shiftview.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -113,6 +114,8 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol         } },
 	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol           } },
 	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol         } },
